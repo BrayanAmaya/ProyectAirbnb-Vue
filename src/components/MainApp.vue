@@ -7,13 +7,13 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../assets/c1.jpg" class="d-block w-100" alt="...">
+      <img src="../assets/img/c1.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="../assets/h1.jpg" class="d-block w-100" alt="...">
+      <img src="../assets/img/h1.jpg" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="../assets/hh2.jpg" class="d-block w-100" alt="...">
+      <img src="../assets/img/hh2.jpg" class="d-block w-100" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -32,6 +32,7 @@ export default {
   name: "App",
 };
 </script>
+
 <style scoped>
 .carousel-inner img {
 width: 100%;

@@ -11,7 +11,6 @@ import MainApp from '@/components/MainApp.vue';
 import Navbar from '@/components/Navbar.vue';
 import VueApp from '@/components/VueFooter.vue';
 
-
 export default {
   name: 'HomeView',
   components: {
