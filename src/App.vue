@@ -1,38 +1,27 @@
 <template>
-  <vue-app />
-</template>
  
-
-<script>
-import VueApp from "./components/VueApp.vue";
-
-export default {
-
-  components: { VueApp },
-  name: "App",
-
-  mounted() {
-    axios({
-      method: 'post',
-      url: 'http://api_airbnb.test/auth/login',
-      data: {
-        email: 'brayanantonio816@gmail.com',
-        password: 'brayancito16'
-      }
-    }).then(response => llamar(response.data.access_token))
-
-    const llamar = (token) => {
-      axios.get('http://api_airbnb.test/user', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      }).then(response => console.log(response.data))
-    }
-  }
-
-}
-
-</script>
+  <router-view/>
+</template>
 
 <style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
 </style>

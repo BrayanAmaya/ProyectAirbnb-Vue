@@ -1,4 +1,4 @@
-# proyect-airbnb-vue
+# airbnb-api
 
 ## Project setup
 ```
