@@ -1,33 +1,66 @@
 <template><br><br>
- <div class="container">
-        <div class="card card-container">   
-             <h2 class="title">Airbnb</h2>
-             <h5 class="subtitle">Inicia sesión en tu cuenta.</h5>
+    <div class="container">
+        <div class="card card-container">
+            <h2 class="title">Airbnb</h2>
+            <h5 class="subtitle">Inicia sesión en tu cuenta.</h5>
             <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <form class="form-signin">
                 <span id="reauth-email" class="reauth-email"></span>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Correo electronico" required autofocus>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
-                <div id="remember" class="checkbox">
-                    
-                </div>
-                <button class="btn btn-primary" type="submit">Ingresar</button>
+                <input type="email" v-model="email" class="form-control" placeholder="Correo electronico" required
+                    autofocus>
+                <input type="password" v-model="password" class="form-control" placeholder="Contraseña" required>
+
+                <button class="btn btn-primary" @click.prevent="evaluar">Ingresar</button>
+
             </form><!-- /form -->
-           <a href="#" class="nav-link">¿Has olvidado tu contraseña?</a>
+            <a href="#" class="nav-link">¿Has olvidado tu contraseña?</a>
         </div><!-- /card-container -->
     </div><!-- /container -->
 </template>
+
 <script>
 
+import { ref } from '@vue/reactivity'
+
 export default {
-  name: "App",
-};
+    name: "App",
+
+    data() {
+        const email = ref('')
+        const password = ref('')
+        return {
+            email: email.value,
+            password: password.value
+        }
+    },
+    methods: {
+        evaluar: function () {
+            axios({
+                method: 'post',
+                url: 'http://api_airbnb.test/auth/login',
+                data: {
+                    email: this.email,
+                    password: this.password
+                }
+            }).then(response => llamar(response.data.access_token))
+
+            const llamar = (token) => {
+                axios.get('http://api_airbnb.test/user', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }).then(response => console.log(response.data))
+            }
+        }
+
+    }
+}
+
 </script>
 
 
 <style>
-
 .card-container.card {
     max-width: 350px;
     padding: 40px 40px;
