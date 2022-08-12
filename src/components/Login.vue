@@ -1,4 +1,4 @@
-<template><br><br>
+<template><br><br><br>
     <div class="container">
         <div class="card card-container">
             <h2 class="title">Airbnb</h2>
@@ -17,6 +17,7 @@
             <a href="#" class="nav-link">¿Has olvidado tu contraseña?</a>
         </div><!-- /card-container -->
     </div><!-- /container -->
+    <br><br>
 </template>
 
 <script>
@@ -62,8 +63,8 @@ export default {
 
 <style>
 .card-container.card {
-    max-width: 350px;
-    padding: 40px 40px;
+    max-width: 400px;
+    padding: 60px 60px;
     margin-right: auto;
 }
 
