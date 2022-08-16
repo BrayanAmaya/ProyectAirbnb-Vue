@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <!--Inicia el modal-->
-                    <div v-bind:id="dataServicio.idServicio" class="modal" tabindex="-1" role="dialog"
+                    <b-modal v-bind:id="dataServicio.idServicio" class="modal" tabindex="-1" role="dialog"
                         aria-labelledby="myLargeModalLabel">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -42,15 +42,14 @@
                                 <div class="modal-body">
                                     <form class="row g-4" action="#" method="POST">
                                         <div class="form-group col-md-12">
-                                            <img src="../assets/img/c1.jpg" class="mx-auto d-block">
+                                            <img src="" class="mx-auto d-block">
                                         </div>
 
                                         <div class="form-group col-md-4">
                                             <label class="label has-text-centered">Tarifa</label>
                                             <div v-for="dataTarifa in dataTarifas" :key="dataTarifa.idTarifa">
                                                 <h6 class="subtitle is-6 has-text-centered"
-                                                    v-if="dataServicio.idTarifa === dataTarifa.idTarifa">
-                                                    {{ dataTarifa.precio }}</h6>
+                                                    v-if="dataServicio.idTarifa === dataTarifa.idTarifa">${{dataTarifa.precio }}</h6>
                                             </div>
                                         </div>
 
@@ -123,7 +122,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </b-modal>
 
                 </div>
             </div>
