@@ -1,20 +1,21 @@
 <template>
   <Navbar />
-  <login />
+  <Alojamiento />
   <VueFooter />
 </template>
 
 <script>
-import Login from '@/components/Login.vue'
+
 import Navbar from '@/components/Navbar.vue';
 import VueFooter from '@/components/VueFooter.vue';
+import Alojamiento from '@/components/Alojamiento.vue';
 
 export default {
-  name: 'LoginView',
+  name: 'AlojamientoView',
   components: {
-    Login,
     Navbar,
-    VueFooter
-  }
+    VueFooter,
+    Alojamiento
+}
 }
 </script>

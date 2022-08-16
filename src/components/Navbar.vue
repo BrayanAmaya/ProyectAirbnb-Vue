@@ -15,10 +15,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto mb-2 mb-lg-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Alojamiento</a>
+            <router-link id="btnAlojamiento" class="dropdown-item" to="/alojamiento">Alojamientos</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Experiencias</a>
+            <router-link id="btnAlojamiento" class="dropdown-item" to="#">Experiencias</router-link>
           </li>
         </ul>
         <div class="btn-group" role="group">
@@ -49,6 +49,12 @@ export default {
 </script>
 
 <style scoped>
+
+#btnAlojamiento{
+  color: white;
+}
+
+
 img {
   width: 60px;
   height: 50px;
