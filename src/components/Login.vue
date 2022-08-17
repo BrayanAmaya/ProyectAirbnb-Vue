@@ -1,7 +1,5 @@
 <template><br><br><br>
-    <div class="container">
-
-   
+    <div class="container">   
         <div class="card card-container">
             <h2 class="title">Airbnb</h2>
             <h5 class="subtitle">Inicia sesión en tu cuenta.</h5>

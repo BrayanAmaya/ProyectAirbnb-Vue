@@ -31,7 +31,7 @@
               <a class="dropdown-item" href="">Perfil</a>
             </li>
             <li>
-              <router-link @click.prevent="eliminar" class="dropdown-item" to="/">Cerrar sesion</router-link>
+              <router-link @click.prevent="eliminar" class="dropdown-item"  to="/">Cerrar sesion</router-link>
             </li>
           </ul>
         </div>
@@ -58,8 +58,6 @@ export default {
             localStorage.removeItem(clave);
             this.local = clave
         });
-       
-
     }
   }
 
