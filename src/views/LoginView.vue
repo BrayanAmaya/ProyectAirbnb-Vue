@@ -15,6 +15,7 @@ export default {
     Login,
     Navbar,
     VueFooter
-  }
+  },
+ 
 }
 </script>

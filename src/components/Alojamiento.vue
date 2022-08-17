@@ -1,6 +1,7 @@
 <template >
 
     <div class="container">
+       
         <div class="row g-4">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
@@ -135,7 +136,7 @@
 <script>
 
 export default {
-
+    name: 'Alojamiento',
     data: () => ({
         dataServicios: null,
         dataAnfitriones: null,
@@ -186,10 +187,7 @@ export default {
     }
 };
 
-/* const llamar = () => {
-                axios.get('http://api_airbnb.test/servicios').then(response => console.log(response.data))
-            }
-            */
+
 </script>
 
 <style scoped>

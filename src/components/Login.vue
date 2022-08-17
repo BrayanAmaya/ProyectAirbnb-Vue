@@ -23,7 +23,7 @@
 <script>
 
 import { ref } from '@vue/reactivity'
-
+import { watchEffect } from "@vue/runtime-core";
 export default {
     name: "App",
 
@@ -47,14 +47,30 @@ export default {
             }).then(response => llamar(response.data.access_token))
 
             const llamar = (token) => {
-                axios.get('http://api_airbnb.test/servicios', {
+
+
+                axios.get('http://api_airbnb.test/usuarios', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
-                }).then(response => console.log(response.data))
-            }
-        }
 
+                }).then(response => {
+                    if (localStorage.getItem(token)) {
+                        token = JSON.parse(localStorage.getItem(token));
+                    }
+                    watchEffect(() => {
+                        localStorage.setItem(token, JSON.stringify(token));
+                    });
+                    console.log(response.data),
+                    
+                  //  variable = JSON.parse(localStorage.getItem(token));
+                    
+                    this.$router.push('/inicio/'+token)
+
+                })
+            }
+
+        }
     }
 }
 
