@@ -1,7 +1,7 @@
 <template>
     <div v-if="$route.params.id = local">
         <NavbarUser />
-        <Alojamiento />
+        <AlojamientoUser />
         <VueFooter />
     </div>
 
@@ -14,8 +14,8 @@
 <script>
 import NavbarUser from '@/components/usuario/NavbarUser.vue';
 import VueFooter from '@/components/VueFooter.vue';
-import Alojamiento from '@/components/Alojamiento.vue';
 import LoginView from '../LoginView.vue';
+import AlojamientoUser from '@/components/usuario/AlojamientoUser.vue';
 
 
 export default {
@@ -23,9 +23,8 @@ export default {
     components: {
         NavbarUser,
         VueFooter,
-        Alojamiento,
-        LoginView,
-
+        AlojamientoUser,
+        LoginView
     },
     data: () => ({
         local: ''
@@ -37,7 +36,6 @@ export default {
             localStorage.getItem(clave)
             this.local = clave
         });
-
     },
 }
 

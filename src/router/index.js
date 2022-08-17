@@ -21,11 +21,13 @@ const routes = [
     component: () => import( '../views/AlojamientoView.vue')
   },
 
+  
   {
     path: '/inicio/:id',
     name: 'inicio',
     component: () => import( '../views/usuario/InicioView.vue')
   },
+ 
 
 ]
 

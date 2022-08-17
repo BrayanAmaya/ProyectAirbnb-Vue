@@ -1,5 +1,7 @@
 <template><br><br><br>
     <div class="container">
+
+   
         <div class="card card-container">
             <h2 class="title">Airbnb</h2>
             <h5 class="subtitle">Inicia sesión en tu cuenta.</h5>
@@ -16,6 +18,9 @@
             </form><!-- /form -->
             <a href="#" class="nav-link">¿Has olvidado tu contraseña?</a>
         </div><!-- /card-container -->
+        
+      
+
     </div><!-- /container -->
     <br><br>
 </template>
@@ -32,7 +37,8 @@ export default {
         const password = ref('')
         return {
             email: email.value,
-            password: password.value
+            password: password.value,
+           
         }
     },
     methods: {
@@ -44,10 +50,13 @@ export default {
                     email: this.email,
                     password: this.password
                 }
-            }).then(response => llamar(response.data.access_token))
+            }).then(response => llamar(response.data.access_token)).catch(function (error) {
+               swal("¡Error!", "Ingresa los datos correctamente", "error");
+
+              }
+            )
 
             const llamar = (token) => {
-
 
                 axios.get('http://api_airbnb.test/usuarios', {
                     headers: {
@@ -62,11 +71,8 @@ export default {
                         localStorage.setItem(token, JSON.stringify(token));
                     });
                     console.log(response.data),
-                    
-                  //  variable = JSON.parse(localStorage.getItem(token));
-                    
-                    this.$router.push('/inicio/'+token)
-
+                        //  variable = JSON.parse(localStorage.getItem(token));
+                        this.$router.push('/inicio/' + token)
                 })
             }
 
