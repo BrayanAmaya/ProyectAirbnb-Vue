@@ -4,11 +4,17 @@
 
         <div class="row g-4">
             <div class="row row-cols-1 row-cols-md-4 g-4">
+
                 <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
                     <div class="card h-100 border-0 shadow">
 
-                        <img  v-bind:src="dataFotos" class="card-img-top" alt="...">
-                        
+
+
+                        <div class="carousel-item active">
+                            <img class="mx-auto d-block card-img-top" src="" alt="First slide">
+                        </div>
+
+
                         <div class="card-body">
                             <h2> {{ dataServicio.nombre }}</h2>
 
@@ -149,7 +155,9 @@ export default {
         dataMunicipios: null,
         dataTarifas: null,
         dataTipoHospedajes: null,
-        dataFotos: []
+        rutaFotos: null,
+        fotos: null
+
     }),
     created() {
 
@@ -165,10 +173,25 @@ export default {
         axios.get('http://api_airbnb.test/anfitriones').then(response =>
             console.log(response.data.clients))*/
 
+
         axios.get('http://api_airbnb.test/servicios').then(result => {
             this.dataServicios = result.data.clients
-                    
-       })
+            //   console.log(result.data.clients)
+
+            const datos = result.data.clients
+
+
+            for (let i = 0; i < datos.length; i++) {
+                //  console.log(datos[i].foto)
+                this.rutaFotos = datos[i].foto
+
+                //se imprime la ruta de todas publicaciones registradas e la BD
+                console.log(this.rutaFotos)
+            }
+            // const resultado = this.getImgUrl(this.rutaFotos)
+
+
+        })
 
         axios.get('http://api_airbnb.test/anfitriones').then(result => {
             this.dataAnfitriones = result.data.clients
@@ -185,21 +208,53 @@ export default {
         axios.get('http://api_airbnb.test/tipoHospedajes').then(result => {
             this.dataTipoHospedajes = result.data.clients
         })
-       /* let ruta = "C:/laragon/www/ProyectAirbnb-Vue/src/assets/img/publicaciones/1/2766/yW1chwk2I0gQUBVe"
-        const rutaCompleta = ruta +'/yW1chwk2I0gQUBVe.jpg';
-        this.dataFotos = rutaCompleta*/
 
-        this.dataFotos = require('C:/laragon/www/ProyectAirbnb-Vue/src/assets/img/publicaciones/1/2766/yW1chwk2I0gQUBVe.jpg')
+        //Lee el directorio 
+        const resultado = require.context(
+            '@/assets/img/publicaciones/1/2766/',
+            true,
+            /^.*\.jpg$/
+        )
 
-       /* axios.get('c:/laragon/www/ProyectAirbnb-Vue/src/assets/img/publicaciones/1/2766/yW1chwk2I0gQUBVe').then(result => {
-            this.dataFotos = result.data
-        })*/
+        //guardamos el resultado de la lectura de directorio
+        const resultadoFiles = resultado.keys()
+
+        //ciclo for para imprimir uno por uno todos los archivos que esten en ese directorio
+        for (let i = 0; i < resultadoFiles.length; i++) {
+            //  console.log(partido[i].slice(2))
+
+            
+            this.fotos = resultadoFiles[i].slice(2)
+            console.log(this.fotos)
+        }
+
+        /* const result = require.context(
+             '@/assets/img/publicaciones/1/2766/',
+             true,
+             /^.*\.jpg$/
+         )*/
+
+
+
+        /* let ruta = "C:/laragon/www/ProyectAirbnb-Vue/src/assets/img/publicaciones/1/2766/yW1chwk2I0gQUBVe"
+         const rutaCompleta = ruta +'/yW1chwk2I0gQUBVe.jpg';
+         this.dataFotos = rutaCompleta*/
+
+        //  this.dataFotos = require('C:/laragon/www/ProyectAirbnb-Vue/src/assets/img/publicaciones/1/2766/yW1chwk2I0gQUBVe.jpg')
+        //  const ruta = 'C:/laragon/www/ProyectAirbnb-Vue/src/assets'
+        // this.dataFotos.push(URL.createObjectURL(ruta));
+        /* axios.get('c:/laragon/www/ProyectAirbnb-Vue/src/assets/img/publicaciones/1/2766/yW1chwk2I0gQUBVe').then(result => {
+             this.dataFotos = result.data
+         })*/
 
     },
 
     methods: {
         showModal(id) {
             $("#" + id).modal('show');
+        },
+        getImgUrl() {
+
         },
 
     }
