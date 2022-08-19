@@ -8,10 +8,8 @@
                 <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
                     <div class="card h-100 border-0 shadow">
 
-
-
                         <div class="carousel-item active">
-                            <img class="mx-auto d-block card-img-top" src="" alt="First slide">
+                            <img class="mx-auto d-block card-img-top" src="@/assets/img/publicaciones/1/2766/gcioXQzkmRPjlqUD.jpg" alt="First slide">
                         </div>
 
 
@@ -148,7 +146,10 @@
 
 
 export default {
+
+
     name: 'Alojamiento',
+
     data: () => ({
         dataServicios: null,
         dataAnfitriones: null,
@@ -187,9 +188,10 @@ export default {
 
                 //se imprime la ruta de todas publicaciones registradas e la BD
                 console.log(this.rutaFotos)
-            }
-            // const resultado = this.getImgUrl(this.rutaFotos)
 
+                const pruebafiles = this.rutaFotos
+
+            }
 
         })
 
@@ -216,45 +218,18 @@ export default {
             /^.*\.jpg$/
         )
 
-        //guardamos el resultado de la lectura de directorio
         const resultadoFiles = resultado.keys()
 
         //ciclo for para imprimir uno por uno todos los archivos que esten en ese directorio
         for (let i = 0; i < resultadoFiles.length; i++) {
-            //  console.log(partido[i].slice(2))
-
-            
+            //  console.log(partido[i].slice(2))               
             this.fotos = resultadoFiles[i].slice(2)
             console.log(this.fotos)
         }
-
-        /* const result = require.context(
-             '@/assets/img/publicaciones/1/2766/',
-             true,
-             /^.*\.jpg$/
-         )*/
-
-
-
-        /* let ruta = "C:/laragon/www/ProyectAirbnb-Vue/src/assets/img/publicaciones/1/2766/yW1chwk2I0gQUBVe"
-         const rutaCompleta = ruta +'/yW1chwk2I0gQUBVe.jpg';
-         this.dataFotos = rutaCompleta*/
-
-        //  this.dataFotos = require('C:/laragon/www/ProyectAirbnb-Vue/src/assets/img/publicaciones/1/2766/yW1chwk2I0gQUBVe.jpg')
-        //  const ruta = 'C:/laragon/www/ProyectAirbnb-Vue/src/assets'
-        // this.dataFotos.push(URL.createObjectURL(ruta));
-        /* axios.get('c:/laragon/www/ProyectAirbnb-Vue/src/assets/img/publicaciones/1/2766/yW1chwk2I0gQUBVe').then(result => {
-             this.dataFotos = result.data
-         })*/
-
     },
-
     methods: {
         showModal(id) {
             $("#" + id).modal('show');
-        },
-        getImgUrl() {
-
         },
 
     }
