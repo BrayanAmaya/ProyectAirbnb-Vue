@@ -14,11 +14,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto mb-2 mb-lg-3">
-          <li class="nav-item">
-            <router-link id="btnAlojamiento" class="dropdown-item" to="/alojamiento">Alojamientos</router-link>
+           <li class="nav-item">
+              <router-link style="color: white; font-weight: bold;"  id="btnExperiencias" class="dropdown-item" to="/alojamiento">Alojamientos</router-link>
           </li>
           <li class="nav-item">
-            <router-link id="btnAlojamiento" class="dropdown-item" to="#">Experiencias</router-link>
+            <router-link  style="color: white; font-weight: bold;" id="btnExperiencias" class="dropdown-item" to="#">Experiencias</router-link>
           </li>
         </ul>
         <div class="btn-group" role="group">

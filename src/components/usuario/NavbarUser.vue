@@ -3,10 +3,8 @@
     <div class="container-fluid">
 
       <li>
-        <router-link to="/">
-          <a class="navbar-brand"><img src="../../assets/img/logo.png" class="img-fluid" width="60px" height="60px"
+          <a href="" class="navbar-brand"><img src="../../assets/img/logo.png" class="img-fluid" width="60px" height="60px"
               alt="" /></a>
-        </router-link>
       </li>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -16,10 +14,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto mb-2 mb-lg-3">
           <li class="nav-item">
-            <router-link id="btnAlojamiento" class="dropdown-item" to="#">Alojamientos</router-link>
+            <a style="color: red; font-weight: bold;"  id="btnAlojamiento" class="dropdown-item" href="" >Mis Publicaciones</a>
           </li>
           <li class="nav-item">
-            <router-link id="btnAlojamiento" class="dropdown-item" to="#">Experiencias</router-link>
+            <router-link  style="color: white; font-weight: bold;" id="btnExperiencias" class="dropdown-item" to="#">Experiencias</router-link>
           </li>
         </ul>
         <div class="btn-group" role="group">
