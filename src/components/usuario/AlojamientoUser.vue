@@ -9,12 +9,12 @@
                     <div class="card h-100 border-0 shadow">
 
                         <div class="carousel-item active">
-                            <img class="mx-auto d-block card-img-top" src="@/assets/img/publicaciones/1/2766/gcioXQzkmRPjlqUD.jpg" alt="First slide">
+                            <img class="mx-auto d-block card-img-top" src="@/assets/img/publicaciones/default.jpg" alt="First slide">
                         </div>
 
 
                         <div class="card-body">
-                            <h2> {{ dataServicio.nombre }}</h2>
+                            <h2> {{ dataServicio.nombre }} </h2>
 
                             <div v-for="dataAnfitrion in dataAnfitriones" :key="dataAnfitrion.idAnfitrion">
                                 <h5 v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion">@{{
@@ -49,8 +49,8 @@
                                 <div class="modal-body">
                                     <form class="row g-4" action="#" method="POST">
                                         <div class="form-group col-md-12">
-                                            <img src="" class="mx-auto d-block">
-                                        </div>
+                                            <img  class="mx-auto d-block"  src="@/assets/img/publicaciones/default.jpg" alt="First slide">
+                                        </div>                                           
 
                                         <div class="form-group col-md-4">
                                             <label class="label has-text-centered">Tarifa</label>
@@ -199,7 +199,7 @@ export default {
             this.dataAnfitriones = result.data.clients
         })
 
-        axios.get('http://api_airbnb.test/municipios').then(result => {
+        axios.get('http://api_airbnb.test/municipioss').then(result => {
             this.dataMunicipios = result.data.clients
         })
 

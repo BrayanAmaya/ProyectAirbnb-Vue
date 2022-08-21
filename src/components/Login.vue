@@ -3,7 +3,7 @@
         <div class="card card-container">
             <h2 class="title">Airbnb</h2>
             <h5 class="subtitle">Inicia sesión en tu cuenta.</h5>
-            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <img id="profile-img" class="profile-img-card" src="https://smartemployee.gbm.net/www/assets/img/user.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <form class="form-signin">
                 <span id="reauth-email" class="reauth-email"></span>
@@ -17,8 +17,6 @@
             <a href="#" class="nav-link">¿Has olvidado tu contraseña?</a>
         </div><!-- /card-container -->
         
-      
-
     </div><!-- /container -->
     <br><br>
 </template>

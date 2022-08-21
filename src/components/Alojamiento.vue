@@ -4,7 +4,8 @@
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
                     <div class="card h-100 border-0 shadow">
-                        <img src="../assets/img/c1.jpg" class="card-img-top" alt="...">
+                        <img src="@/assets/img/publicaciones/default.jpg" class="card-img-top" alt="...">
+                       
                         <div class="card-body">
                             <h2> {{ dataServicio.nombre }}</h2>
 
@@ -40,9 +41,9 @@
                                 </div>
                                 <div class="modal-body">
                                     <form class="row g-4" action="#" method="POST">
-                                        <div class="form-group col-md-12">
-                                            <img src="" class="mx-auto d-block">
-                                        </div>
+                                           <div class="form-group col-md-12">
+                                            <img  class="mx-auto d-block"  src="@/assets/img/publicaciones/default.jpg" alt="First slide">
+                                        </div>           
 
                                         <div class="form-group col-md-4">
                                             <label class="label has-text-centered">Tarifa</label>
