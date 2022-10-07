@@ -9,16 +9,15 @@
                     <div class="card h-100 border-0 shadow">
 
                         <div class="carousel-item active">
-                            <img class="mx-auto d-block card-img-top" src="@/assets/img/publicaciones/default.jpg" alt="First slide">
+                            <img class="mx-auto d-block card-img-top" src="@/assets/img/publicaciones/default.jpg"
+                                alt="First slide">
                         </div>
-
-
                         <div class="card-body">
                             <h2> {{ dataServicio.nombre }} </h2>
 
                             <div v-for="dataAnfitrion in dataAnfitriones" :key="dataAnfitrion.idAnfitrion">
                                 <h5 v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion">@{{
-                                        dataAnfitrion.descripcion
+                                dataAnfitrion.descripcion
                                 }}</h5>
                             </div>
 
@@ -26,14 +25,17 @@
 
                             <div v-for="dataMunicipio in dataMunicipios" :key="dataMunicipio.idMunicipio">
                                 <p v-if="dataServicio.idMunicipio === dataMunicipio.idMunicipio">Municipio: {{
-                                        dataMunicipio.municipio
+                                dataMunicipio.municipio
                                 }}</p>
                             </div>
                             <p> Publicada: {{ dataServicio.date_update }}</p>
-                            <router-link class="btn btn-primary" to="#">Reservar</router-link>
+
+                            <button v-if="dataServicio.disponibilidad == 0" class="btn btn-primary"
+                                @click.prevent="reservar(dataServicio.idServicio)">Reservar</button>
                             <button class="btn btn-primary" @click="showModal(dataServicio.idServicio)">Ver</button>
                         </div>
                     </div>
+
                     <!--Inicia el modal-->
                     <div v-bind:id="dataServicio.idServicio" class="modal" tabindex="-1" role="dialog"
                         aria-labelledby="myLargeModalLabel">
@@ -49,11 +51,12 @@
                                 <div class="modal-body">
                                     <form class="row g-4" action="#" method="POST">
                                         <div class="form-group col-md-12">
-                                            <img  class="mx-auto d-block"  src="@/assets/img/publicaciones/default.jpg" alt="First slide">
-                                        </div>                                           
+                                            <img class="mx-auto d-block" src="@/assets/img/publicaciones/default.jpg"
+                                                alt="First slide">
+                                        </div>
 
                                         <div class="form-group col-md-4">
-                                            <label class="label has-text-centered">Tarifa</label>
+                                            <label class="label has-text-centered">Tarifa/Noche</label>
                                             <div v-for="dataTarifa in dataTarifas" :key="dataTarifa.idTarifa">
                                                 <h6 class="subtitle is-6 has-text-centered"
                                                     v-if="dataServicio.idTarifa === dataTarifa.idTarifa">
@@ -73,13 +76,11 @@
 
                                         <div class="form-group col-md-4">
                                             <label class="label has-text-centered">Disponibilidad</label>
+
                                             <div v-if="dataServicio.disponibilidad == 0">
-                                                <h6 class="subtitle is-6 has-text-centered">de baja</h6>
-                                            </div>
-                                            <div v-if="dataServicio.disponibilidad == 1">
                                                 <h6 class="subtitle is-6 has-text-centered">Sin reservar</h6>
                                             </div>
-                                            <div v-if="dataServicio.disponibilidad == 2">
+                                            <div v-if="dataServicio.disponibilidad == 1">
                                                 <h6 class="subtitle is-6 has-text-centered">Reservado</h6>
                                             </div>
 
@@ -112,7 +113,7 @@
                                             <div v-for="dataAnfitrion in dataAnfitriones"
                                                 :key="dataAnfitrion.idAnfitrion">
                                                 <h6 v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion">@{{
-                                                        dataAnfitrion.descripcion
+                                                dataAnfitrion.descripcion
                                                 }}</h6>
                                             </div>
                                         </div>
@@ -181,7 +182,6 @@ export default {
 
             const datos = result.data.clients
 
-
             for (let i = 0; i < datos.length; i++) {
                 //  console.log(datos[i].foto)
                 this.rutaFotos = datos[i].foto
@@ -230,6 +230,10 @@ export default {
     methods: {
         showModal(id) {
             $("#" + id).modal('show');
+        },
+
+        reservar(idServicio) {
+            this.$router.push('/reservar/' + idServicio)
         },
 
     }

@@ -14,7 +14,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto mb-2 mb-lg-3">
           <li class="nav-item">
-            <a style="color: red; font-weight: bold;"  id="btnAlojamiento" class="dropdown-item" href="" >Mis Publicaciones</a>
+              <router-link  style="color: white; font-weight: bold;" class="dropdown-item"  to="/alojamientoUser">Alojamientos</router-link>
           </li>
           <li class="nav-item">
             <router-link  style="color: white; font-weight: bold;" id="btnExperiencias" class="dropdown-item" to="#">Experiencias</router-link>
@@ -51,8 +51,7 @@ export default {
     eliminar: function () {
     let claves = Object.keys(localStorage)
 
-    claves.forEach(clave => {
-           
+    claves.forEach(clave => {  
             localStorage.removeItem(clave);
             this.local = clave
         });

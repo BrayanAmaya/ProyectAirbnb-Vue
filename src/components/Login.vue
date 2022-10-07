@@ -34,7 +34,6 @@ export default {
         return {
             email: email.value,
             password: password.value,
-           
         }
     },
     methods: {
@@ -46,13 +45,13 @@ export default {
                     email: this.email,
                     password: this.password
                 }
-            }).then(response => llamar(response.data.access_token)).catch(function (error) {
+            }).then(response => llamar(response.data.access_token, response.data.user.idUsuario)).catch(function (error) {
                swal("¡Error!", "Ingresa los datos correctamente", "error");
 
               }
             )
 
-            const llamar = (token) => {
+            const llamar = (token,idUsuario) => {
 
                 axios.get('http://api_airbnb.test/usuarios', {
                     headers: {
@@ -60,15 +59,18 @@ export default {
                     }
 
                 }).then(response => {
-                    if (localStorage.getItem(token)) {
+                    if (localStorage.getItem(token) && localStorage.getItem(idUsuario) ) {
                         token = JSON.parse(localStorage.getItem(token));
+                        idUsuario = JSON.parse(localStorage.getItem(idUsuario));
                     }
                     watchEffect(() => {
                         localStorage.setItem(token, JSON.stringify(token));
+                        localStorage.setItem(idUsuario, JSON.stringify(idUsuario));
                     });
-                    console.log(response.data),
+                   // console.log(response.data),
+                   //console.log(idUsuario)
                         //  variable = JSON.parse(localStorage.getItem(token));
-                        this.$router.push('/inicio/' + token)
+                    this.$router.push('/inicio/' + token)
                 })
             }
 
@@ -123,3 +125,6 @@ export default {
     box-sizing: border-box;
 }
 </style>
+
+   
+                                     

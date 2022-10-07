@@ -22,6 +22,12 @@ const routes = [
   },
 
   {
+    path: '/alojamientoUser/',
+    name: 'alojamientoUser',
+    component: () => import( '../views/usuario/AlojamientoView.vue')
+  },
+
+  {
     path: '/inicio',
     component: () => import( '../views/usuario/InicioView.vue')
   },
@@ -30,6 +36,12 @@ const routes = [
     path: '/inicio/:id',
     name: 'inicio',
     component: () => import( '../views/usuario/InicioView.vue')
+  },
+
+  {
+    path: '/reservar/:idServicio',
+    name: 'reserva',
+    component: () => import( '../views/usuario/ReservaView.vue')
   },
  
 

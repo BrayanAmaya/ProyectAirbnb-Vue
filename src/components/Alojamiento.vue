@@ -46,7 +46,7 @@
                                         </div>           
 
                                         <div class="form-group col-md-4">
-                                            <label class="label has-text-centered">Tarifa</label>
+                                            <label class="label has-text-centered">Tarifa/Noche</label>
                                             <div v-for="dataTarifa in dataTarifas" :key="dataTarifa.idTarifa">
                                                 <h6 class="subtitle is-6 has-text-centered"
                                                     v-if="dataServicio.idTarifa === dataTarifa.idTarifa">${{dataTarifa.precio }}</h6>
@@ -165,7 +165,7 @@ export default {
             this.dataAnfitriones = result.data.clients
         })
 
-        axios.get('http://api_airbnb.test/municipios').then(result => {
+        axios.get('http://api_airbnb.test/municipioss').then(result => {
             this.dataMunicipios = result.data.clients
         })
 
