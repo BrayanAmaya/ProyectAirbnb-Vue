@@ -1,9 +1,9 @@
 <template><br><br><br>
-    <div class="container">   
+    <div class="container">
         <div class="card card-container">
             <h2 class="title">Airbnb</h2>
             <h5 class="subtitle">Inicia sesión en tu cuenta.</h5>
-            <img id="profile-img" class="profile-img-card" src="https://smartemployee.gbm.net/www/assets/img/user.png" />
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
             <p id="profile-name" class="profile-name-card"></p>
             <form class="form-signin">
                 <span id="reauth-email" class="reauth-email"></span>
@@ -16,7 +16,6 @@
             </form><!-- /form -->
             <a href="#" class="nav-link">¿Has olvidado tu contraseña?</a>
         </div><!-- /card-container -->
-        
     </div><!-- /container -->
     <br><br>
 </template>
@@ -25,6 +24,7 @@
 
 import { ref } from '@vue/reactivity'
 import { watchEffect } from "@vue/runtime-core";
+
 export default {
     name: "App",
 
@@ -33,7 +33,7 @@ export default {
         const password = ref('')
         return {
             email: email.value,
-            password: password.value,
+            password: password.value
         }
     },
     methods: {
@@ -46,20 +46,17 @@ export default {
                     password: this.password
                 }
             }).then(response => llamar(response.data.access_token, response.data.user.idUsuario)).catch(function (error) {
-               swal("¡Error!", "Ingresa los datos correctamente", "error");
+                swal("¡Error!", "Ingresa los datos correctamente", "error");
 
-              }
-            )
-
-            const llamar = (token,idUsuario) => {
-
-                axios.get('http://api_airbnb.test/usuarios', {
+            })
+            
+            const llamar = (token, idUsuario) => {
+                axios.get('http://api_airbnb.test/user', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
-
                 }).then(response => {
-                    if (localStorage.getItem(token) && localStorage.getItem(idUsuario) ) {
+                    if (localStorage.getItem(token) ) {
                         token = JSON.parse(localStorage.getItem(token));
                         idUsuario = JSON.parse(localStorage.getItem(idUsuario));
                     }
@@ -73,8 +70,8 @@ export default {
                     this.$router.push('/inicio/' + token)
                 })
             }
-
         }
+
     }
 }
 
@@ -125,6 +122,3 @@ export default {
     box-sizing: border-box;
 }
 </style>
-
-   
-                                     

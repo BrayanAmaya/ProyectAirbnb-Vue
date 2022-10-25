@@ -30,7 +30,7 @@
               <a class="dropdown-item" href="">Registrarse</a>
             </li>
             <li>
-              <a class="dropdown-item" href="">Hazte anfitrión</a>
+              <a class="dropdown-item" target="_blank" href="http://proyect_airbnb.test/auth/registro-anfitrion">Hazte anfitrión</a>
             </li>
             <li>
               <router-link class="dropdown-item" to="/login">Inicar sesion</router-link>

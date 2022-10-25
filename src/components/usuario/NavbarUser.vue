@@ -17,7 +17,7 @@
               <router-link  style="color: white; font-weight: bold;" class="dropdown-item"  to="/alojamientoUser">Alojamientos</router-link>
           </li>
           <li class="nav-item">
-            <router-link  style="color: white; font-weight: bold;" id="btnExperiencias" class="dropdown-item" to="#">Experiencias</router-link>
+            <router-link  style="color: white; font-weight: bold;"  to="/filtroUser" class="dropdown-item" >Filtros</router-link>
           </li>
         </ul>
         <div class="btn-group" role="group">

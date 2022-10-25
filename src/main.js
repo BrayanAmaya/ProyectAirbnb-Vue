@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import VueCarousel from 'vue-carousel';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-
-createApp(App).use(router).use(VueCarousel).mount('#app')
+createApp(App).use(router,axios,VueAxios).mount('#app')

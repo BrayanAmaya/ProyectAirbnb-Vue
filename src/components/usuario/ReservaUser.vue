@@ -7,8 +7,8 @@
                     <div class="col-md-12">
                         <img id="profile-img" class="profile-img-card" src="@/assets/img/logo.png" />
                     </div>
-
-                    <h1 v-on="obtenerIdUsuario(this.$route.params.idServicio)" class="title">Reservar id:{{idServicio}}
+                    <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
+                    <h1  class="title">Reservar en:{{dataServicio.nombre}}
                     </h1>
                     <h4 class="subtitle">
                         Llena los siguientes datos para poder reservar.
@@ -21,17 +21,14 @@
 
                                 <!-- primera  -->
                                 <div class="col-md-12">
-                                    <label v-on:="Data()" class="label has-text-centered">Tarifa/Noche
-                                        {{idUsuario}}</label>
+                                    <label class="label has-text-centered">Tarifa/Noche</label>
 
-                                    <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
-                                        <div v-if="dataServicio.idServicio === this.$route.params.idServicio">
-
-                                            <div v-for="dataTarifa in dataTarifas" :key="dataTarifa.idTarifa">
-                                                <h6 v-on="calcularTotal(diasReserva, dataTarifa.precio,dataTarifa.descuento)"
-                                                    class="subtitle is-6 has-text-centered"
-                                                    v-if="dataServicio.idTarifa === dataTarifa.idTarifa">
-                                                    ${{ dataTarifa.precio }} descuento {{dataTarifa.descuento}}%</h6>
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <h6
+                                                    class="subtitle is-6 has-text-centered">
+                                                    ${{ dataTarifas[0].precio }} descuento {{dataTarifas[0].descuento}}%</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -61,13 +58,13 @@
 
 
                                 <div v-if="fechaSalida != null && fechaEntrada != null ">
-                                    <h5 v-on="calcular(fechaSalida,fechaEntrada)" class="label has-text-centered">Dias
+                                    <h5 class="label has-text-centered">Dias
                                         de
-                                        reserva: {{diasReserva}}</h5><br>
+                                        reserva: {{calcular(fechaSalida,fechaEntrada)}}</h5><br>
                                 </div>
-
-                                <h1 class="label has-text-centered">Total a Pagar: ${{totalAPagar}}</h1><br><br>
-
+                                <div v-if="fechaSalida != null && fechaEntrada != null ">
+                                <h1 class="label has-text-centered">Total a Pagar: ${{calcularTotal(diasReserva,dataTarifas[0].precio,dataTarifas[0].descuento)}}</h1><br><br>
+                                </div>
                                 <!-- tercera fila -->
                                 <div class="form-group">
                                     <div class="row">
@@ -140,6 +137,7 @@
                         <!-- Fin de formulario -->
                     </form>
                 </div>
+                </div>
 
             </div>
         </div>
@@ -166,7 +164,6 @@ export default {
         const fechaSalida = ref('')
 
         return {
-            //idUsuario: 1,
             fechaEntrada: fechaEntrada.value,
             fechaSalida: fechaSalida.value,
             banco: banco.value,
@@ -187,12 +184,11 @@ export default {
 
     }),
     created() {
-        axios.get('http://api_airbnb.test/servicios').then(result => {
-            this.dataServicios = result.data.clients,
-                this.fechaActual = new Date().toISOString().slice(0, 10);
-        })
-        axios.get('http://api_airbnb.test/tarifas').then(result => {
-            this.dataTarifas = result.data.clients
+        axios.get('http://api_airbnb.test/servicios/reservas/'+this.$route.params.idServicio).then(result => {
+            this.dataServicios = result.data.servicio,
+            this.dataTarifas = result.data.tarifa
+            this.fechaActual = new Date().toISOString().slice(0, 10);
+            this.idServicio = this.dataServicios[0].idServicio
         })
 
         let claves = Object.keys(localStorage)
@@ -212,8 +208,7 @@ export default {
         calcular: function (fechaS, fechaI) {
             var fechaFinal = moment(fechaS);
             var fechaInicio = moment(fechaI);
-            //console.log(moment.duration(fechaFinal.diff(fechaInicio)).asDays());
-            this.diasReserva = moment.duration(fechaFinal.diff(fechaInicio)).asDays();
+            return this.diasReserva = moment.duration(fechaFinal.diff(fechaInicio)).asDays();
         },
 
         calcularTotal: function (diasReserva, precio, descuento) {
@@ -221,13 +216,12 @@ export default {
             var obtenerDescuento = descuento / 100;
             var totalFinal = subTotal * obtenerDescuento;
             var total = subTotal - totalFinal;
-            //console.log(total);
-            this.totalAPagar = total;
+            return this.totalAPagar = total;
         },
 
         enviarData: function () {
             axios({
-                method: 'post',
+                method: 'POST',
                 url: 'http://api_airbnb.test/pagos',
                 data: {
                     fechaEntrada: this.fechaEntrada,
@@ -236,33 +230,30 @@ export default {
                     idUsuario: this.idUsuario,
                     total: this.totalAPagar,
                     banco: this.banco,
-                    numeroDeBanco: this.numeroDeBanco,
+                    cuenta: this.numeroDeBanco,
                     pin: this.pin
 
                 }
-            }).then(response => swal(" correctamente", "exito")).catch(function (error) {
+            }).then(response => evaluar(response)).catch(function (error) {
                 swal("¡Error!", "Ingresa los datos correctamente", "error");
-
+            })
+            const evaluar  = (response) => {
+                console.log(response)
+                if(response.data.errors != null){
+                    if(response.data.errors.cuenta!=null){
+                        swal("¡Error!",response.data.errors.cuenta, "error")
+                    }else if(response.data.errors.pin!=null){
+                        swal("¡Error!",response.data.errors.pin, "error")
+                    }else if(swal("¡Error!",response.data.errors.banco, "error")){
+                        swal("¡Error!",response.data.errors.banco, "error")
+                    }
+                }
+                if(response.data.message != 'Pago realizado con exito'){
+                    swal("¡Error!",response.data.message, "error")
+                }else{
+                    swal(response.data.message, "exito")
+                }
             }
-            )
-        },
-
-        //metodo de prueba para recoger y ver los datos a enviar
-        Data: function () {
-            /*  console.log(this.totalAPagar);
-              console.log(this.idServicio);
-              console.log(this.fechaEntrada);
-              console.log(this.fechaSalida);
-              console.log(this.banco);
-              console.log(this.numeroDeBanco);
-              console.log(this.pin);*/
-
-            /*    for (let i = 0; i <= localStorage.length; i++) {
-                    let key = localStorage.key(i);
-                    alert(`${key}: ${localStorage.getItem(key)}`);
-                }*/
-
-
         },
 
     },

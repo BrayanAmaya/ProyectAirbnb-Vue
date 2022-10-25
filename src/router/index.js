@@ -26,6 +26,11 @@ const routes = [
     name: 'alojamientoUser',
     component: () => import( '../views/usuario/AlojamientoView.vue')
   },
+  {
+    path: '/filtroUser/',
+    name: 'filtroUser',
+    component: () => import( '../views/usuario/FiltroView.vue')
+  },
 
   {
     path: '/inicio',
@@ -42,6 +47,12 @@ const routes = [
     path: '/reservar/:idServicio',
     name: 'reserva',
     component: () => import( '../views/usuario/ReservaView.vue')
+  },
+ 
+  {
+    path: '/verServicio/:idServicio',
+    name: 'verServicio',
+    component: () => import( '../views/usuario/VerServicioView.vue')
   },
  
 

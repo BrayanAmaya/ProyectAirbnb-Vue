@@ -1,7 +1,7 @@
 <template>
     <div v-if="$route.params.id = local">
         <NavbarUser />
-        <AlojamientoUser />
+        <FiltroUser />
         <VueFooter />
     </div>
 
@@ -15,16 +15,15 @@
 import NavbarUser from '@/components/usuario/NavbarUser.vue';
 import VueFooter from '@/components/VueFooter.vue';
 import LoginView from '../LoginView.vue';
-import AlojamientoUser from '@/components/usuario/AlojamientoUser.vue';
-
+import FiltroUser from '@/components/usuario/FiltroUser.vue';
 
 export default {
-    name: 'AlojamientoView',
+    name: 'FiltroView',
     components: {
         NavbarUser,
         VueFooter,
-        AlojamientoUser,
-        LoginView
+        LoginView,
+        FiltroUser
     },
     data: () => ({
         local: ''
@@ -37,6 +36,8 @@ export default {
             this.local = clave
         });
     },
+   
+
 }
 
 </script>

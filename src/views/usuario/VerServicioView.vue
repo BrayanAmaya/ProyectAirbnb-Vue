@@ -1,7 +1,7 @@
 <template>
     <div v-if="$route.params.id = local">
         <NavbarUser />
-        <AlojamientoUser />
+        <VerServicioUser />
         <VueFooter />
     </div>
 
@@ -15,16 +15,15 @@
 import NavbarUser from '@/components/usuario/NavbarUser.vue';
 import VueFooter from '@/components/VueFooter.vue';
 import LoginView from '../LoginView.vue';
-import AlojamientoUser from '@/components/usuario/AlojamientoUser.vue';
-
+import VerServicioUser from '@/components/usuario/VerServicioUser.vue';
 
 export default {
-    name: 'AlojamientoView',
+    name: 'verServicioView',
     components: {
         NavbarUser,
         VueFooter,
-        AlojamientoUser,
-        LoginView
+        LoginView,
+        VerServicioUser
     },
     data: () => ({
         local: ''
