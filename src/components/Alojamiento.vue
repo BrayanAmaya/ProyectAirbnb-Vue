@@ -108,7 +108,7 @@
 
                                         <div class="form-group col-md-3">
                                             <label class="label has-text-centered">Publicada</label>
-                                            <h6 class="subtitle is-6 has-text-centered">{{dataServicio.date_update}}</h6>
+                                            <h6 class="subtitle is-6 has-text-centered">{{getDate(dataServicio.date_create)}}</h6>
                                         </div>
                                     </form>
 
@@ -180,6 +180,11 @@ export default {
         showModal(id) {
             $("#" + id).modal('show');
         },
+
+        getDate: function(fecha){
+            moment.locale('es')
+            return this.fechaFinal = moment(fecha).fromNow()
+        }
 
     }
 };

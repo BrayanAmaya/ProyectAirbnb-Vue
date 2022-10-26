@@ -6,7 +6,7 @@
             <div class="row row-cols-1 row-cols-md-4 g-4">
 
                 <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
-                    <div v-if="dataServicio.estatus==1" class="card h-100 border-0 shadow">
+                    <div  class="card h-100 border-0 shadow">
 
                         <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
                             <div v-if="dataServicio.idServicio === dataImagen.idServicio">
@@ -36,7 +36,7 @@
                                 dataMunicipio.municipio
                                 }}</p>
                             </div>
-                            <p> Publicada: {{ dataServicio.date_update }}</p><br>
+                            <p> Publicada: {{getDate(dataServicio.date_create)}}</p><br>
 
                             <div class="form-group">
                                 <div class="row">

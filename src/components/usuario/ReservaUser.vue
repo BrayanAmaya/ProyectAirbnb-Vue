@@ -1,5 +1,6 @@
 <template ><br><br><br><br>
-    <div class="row">
+
+    <div  class="row">
         <div class="col-md-6 m-auto">
             <div class="card border-0 shadow">
                 <div class="card-body">
@@ -180,7 +181,7 @@ export default {
         diasReserva: null,
         totalAPagar: null,
         counter: 0,
-        idUsuario: null,
+        idUsuario: null,        
 
     }),
     created() {
@@ -206,8 +207,11 @@ export default {
         },
 
         calcular: function (fechaS, fechaI) {
-            var fechaFinal = moment(fechaS);
-            var fechaInicio = moment(fechaI);
+           var fechaFinal = moment(fechaS);
+           var fechaInicio = moment(fechaI);
+
+           var diff = fechaFinal - fechaInicio;
+
             return this.diasReserva = moment.duration(fechaFinal.diff(fechaInicio)).asDays();
         },
 
@@ -217,7 +221,7 @@ export default {
             var totalFinal = subTotal * obtenerDescuento;
             var total = subTotal - totalFinal;
             return this.totalAPagar = total;
-        },
+        }, 
 
         enviarData: function () {
             axios({

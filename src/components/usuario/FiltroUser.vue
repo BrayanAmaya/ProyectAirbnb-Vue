@@ -101,7 +101,7 @@
         <div>
             <div v-if="respuesta == null" class="row row-cols-1 row-cols-md-4 g-4">
                 <div v-for="dataFiltro in dataFiltros" :key="dataFiltro.idServicio">
-                    <div  v-if="dataFiltro.estatus==1"  class="card h-100 border-0 shadow">
+                    <div v-if="dataFiltro.estatus == 1" class="card h-100 border-0 shadow">
 
                         <div class="carousel-item active">
                             <img class="mx-auto d-block card-img-top"
@@ -144,7 +144,7 @@
                                         @click.prevent="reservar(dataFiltro.idServicio)">Reservar</button>
                                 </div>
                             </div>
-                          
+
                         </div>
                     </div>
 
@@ -246,10 +246,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <!-- /Fin de card Filtros -->
 
             </div>
+            <br><br><br><br>
         </div>
 
     </main>
@@ -296,6 +297,7 @@ export default {
         })
 
     },
+
     methods: {
 
         showModal(id) {
