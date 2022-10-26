@@ -3,8 +3,8 @@
     <div class="container-fluid">
 
       <li>
-          <a href="" class="navbar-brand"><img src="../../assets/img/logo.png" class="img-fluid" width="60px" height="60px"
-              alt="" /></a>
+        <a href="" class="navbar-brand"><img src="../../assets/img/logo.png" class="img-fluid" width="60px"
+            height="60px" alt="" /></a>
       </li>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -14,10 +14,12 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto mb-2 mb-lg-3">
           <li class="nav-item">
-              <router-link  style="color: white; font-weight: bold;" class="dropdown-item"  to="/alojamientoUser">Alojamientos</router-link>
+            <router-link style="color: white; font-weight: bold;" class="dropdown-item" to="/alojamientoUser">
+              Alojamientos</router-link>
           </li>
           <li class="nav-item">
-            <router-link  style="color: white; font-weight: bold;"  to="/filtroUser" class="dropdown-item" >Filtros</router-link>
+            <router-link style="color: white; font-weight: bold;" to="/filtroUser" class="dropdown-item">Filtros
+            </router-link>
           </li>
         </ul>
         <div class="btn-group" role="group">
@@ -26,10 +28,12 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-              <a class="dropdown-item" href="">Perfil</a>
+   
+              <router-link  id="btnPerfil" to="/perfil" class="dropdown-item">Perfil </router-link>
+          
             </li>
             <li>
-              <router-link @click.prevent="eliminar" class="dropdown-item"  to="/">Cerrar sesion</router-link>
+              <router-link @click.prevent="eliminar" class="dropdown-item" to="/">Cerrar sesion</router-link>
             </li>
           </ul>
         </div>
@@ -44,18 +48,20 @@ export default {
   name: 'NavbarUser',
 
   data: () => ({
-    local: ''
+    local: '',
+   
   }),
-
   methods: {
     eliminar: function () {
-    let claves = Object.keys(localStorage)
 
-    claves.forEach(clave => {  
-            localStorage.removeItem(clave);
-            this.local = clave
-        });
-    }
+      let claves = Object.keys(localStorage)
+
+      claves.forEach(clave => {
+        localStorage.removeItem(clave);
+        this.local = clave
+      });
+    },
+
   }
 
 };

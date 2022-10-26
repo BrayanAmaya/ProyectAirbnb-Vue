@@ -10,9 +10,11 @@
                             <h2> {{ dataServicio.nombre }}</h2>
 
                             <div v-for="dataAnfitrion in dataAnfitriones" :key="dataAnfitrion.idAnfitrion">
-                                <h5 v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion">@{{
-                                        dataAnfitrion.descripcion
+                                <div v-for="dataUsuario in dataUsuarios" :key="dataUsuario.idUsuario">
+                                    <h5 v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion && dataAnfitrion.idUsuario === dataUsuario.idUsuario">@{{
+                                dataUsuario.nombre+' ' +dataUsuario.apellido
                                 }}</h5>
+                                </div>
                             </div>
 
                             <p> {{ dataServicio.descripcion }}</p>
@@ -22,9 +24,28 @@
                                         dataMunicipio.municipio
                                 }}</p>
                             </div>
-                            <p> Publicada: {{ dataServicio.date_update }}</p>
-                            <router-link class="btn btn-primary" to="/login">Reservar</router-link>
-                            <button class="btn btn-primary" @click="showModal(dataServicio.idServicio)">Ver</button>
+                            <p> Publicada: {{getDate(dataServicio.date_create) }}</p>
+
+                            <div class="form-group">
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <button class="btn btn-primary"
+                                            @click.prevent="verServicio(dataServicio.idServicio)">Ver</button>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <button class="btn btn-info"
+                                            @click="showModal(dataServicio.idServicio)">Preview</button>
+                                    </div><br><br>
+
+                                    <router-link class="btn btn-primary" to="/login">Reservar</router-link>
+                                </div>
+                            </div>
+
+                           
+                            
                         </div>
                     </div>
                     <!--Inicia el modal-->
@@ -101,11 +122,17 @@
                                             <label class="label has-text-centered">Publicada por</label>
                                             <div v-for="dataAnfitrion in dataAnfitriones"
                                                 :key="dataAnfitrion.idAnfitrion">
-                                                <h6 v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion">@{{
-                                                        dataAnfitrion.descripcion }}</h6>
+                                                <div v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion">
+                                                    <div v-for="dataUsuario in dataUsuarios" :key="dataUsuario.idUsuario">
+                                                <h6 v-if="dataUsuario.idUsuario === dataAnfitrion.idUsuario">
+                                                <div></div>@{{
+                                                dataUsuario.nombre+'.'+dataUsuario.apellido
+                                                }}</h6>
+                                                </div>
+                                                </div>
                                             </div>
                                         </div>
-
+                                        
                                         <div class="form-group col-md-3">
                                             <label class="label has-text-centered">Publicada</label>
                                             <h6 class="subtitle is-6 has-text-centered">{{getDate(dataServicio.date_create)}}</h6>
@@ -143,42 +170,25 @@ export default {
     }),
     created() {
 
-        /*data servicios
-        axios.get('http://api_airbnb.test/servicios').then(response =>
-            console.log(response.data.clients))*/
-
-        /*data anfitriones
-        axios.get('http://api_airbnb.test/anfitriones').then(response =>
-            console.log(response.data.clients))*/
-
-        /*data municipios
-        axios.get('http://api_airbnb.test/anfitriones').then(response =>
-            console.log(response.data.clients))*/
-
         axios.get('http://api_airbnb.test/servicios').then(result => {
-            this.dataServicios = result.data.clients
-        })
+            this.dataServicios = result.data.servicios
+            this.dataAnfitriones = result.data.anfitriones
+            this.dataMunicipios = result.data.municipios
+            this.dataTarifas = result.data.tarifas
+            this.dataTipoHospedajes = result.data.tipoHospedaje
+            this.dataUsuarios = result.data.usuarios
+            this.dataImagenes = result.data.imagenes
 
-        axios.get('http://api_airbnb.test/anfitriones').then(result => {
-            this.dataAnfitriones = result.data.clients
-        })
-
-        axios.get('http://api_airbnb.test/municipioss').then(result => {
-            this.dataMunicipios = result.data.clients
-        })
-
-        axios.get('http://api_airbnb.test/tarifas').then(result => {
-            this.dataTarifas = result.data.clients
-        })
-
-        axios.get('http://api_airbnb.test/tipoHospedajes').then(result => {
-            this.dataTipoHospedajes = result.data.clients
         })
 
     },
     methods: {
         showModal(id) {
             $("#" + id).modal('show');
+        },
+
+        verServicio(idServicio) {
+            this.$router.push('/verServicio/' + idServicio)
         },
 
         getDate: function(fecha){
