@@ -21,6 +21,12 @@
             <router-link style="color: white; font-weight: bold;" to="/filtroUser" class="dropdown-item">Filtros
             </router-link>
           </li>
+
+          <li class="nav-item">
+            <router-link style="color: white; font-weight: bold;" to="/MisReservas" class="dropdown-item">Mis Reservas
+            </router-link>
+          </li>
+
         </ul>
         <div class="btn-group" role="group">
           <a id="btnGroupDrop1" type="button" class="btn write" data-bs-toggle="dropdown">

@@ -45,7 +45,7 @@ const routes = [
 
   {
     path: '/reservar/:idServicio',
-    name: 'reserva',
+    name: 'reservar',
     component: () => import( '../views/usuario/ReservaView.vue')
   },
  
@@ -61,6 +61,11 @@ const routes = [
     component: () => import( '../views/usuario/PerfilView.vue')
   },
  
+  {
+    path: '/misReservas/',
+    name: 'misReservas',
+    component: () => import( '../views/usuario/MisReservasView.vue')
+  },
 
 ]
 

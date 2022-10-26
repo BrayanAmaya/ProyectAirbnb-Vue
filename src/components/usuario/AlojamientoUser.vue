@@ -224,10 +224,8 @@ import 'moment/locale/es';
 import { ref } from '@vue/reactivity';
 export default {
 
-
     name: 'Alojamiento',
 
-    
     data() {
         const fechaInicio = ref('')
         const fechaFinal = ref('')
