@@ -9,15 +9,17 @@
                 </li>
             </ul>
 
+          
+
             <div v-for="dataUsuario in dataUsuarios" :key="dataUsuario.idUsuario" class="tab-content" id="myTabContent">
                 <br>
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="form-row">
                         <div class="col-5 justify-content-center mx-auto">
 
-                            <img class="img-thumbnail" src="@/assets/img/logov.png" alt="">
+                            <img class="img-thumbnail" v-bind:src="mostrarFoto(dataUsuario.foto)" alt="">
 
-                        </div><br> 
+                        </div><br>
 
                         <div class="form-group row">
                             <div class="col-12">
@@ -44,20 +46,20 @@
                             </div>
 
                             <div class="col-6">
-                                    <label for="username">
-                                        <h5>Username</h5>
-                                    </label>
-                                    <input disabled type="text" class="form-control" v-bind:value="dataUsuario.username">
-                                    <br><br>
-                                </div>   
+                                <label for="username">
+                                    <h5>Username</h5>
+                                </label>
+                                <input disabled type="text" class="form-control" v-bind:value="dataUsuario.username">
+                                <br><br>
+                            </div>
 
-                                <div class="col-6">
-                                    <label for="fecha de registro">
-                                        <h5>Fecha de registro</h5>
-                                    </label>
-                                    <input disabled type="text" class="form-control" v-bind:value="dataUsuario.date_create">
-                                </div>
-                                          
+                            <div class="col-6">
+                                <label for="fecha de registro">
+                                    <h5>Fecha de registro</h5>
+                                </label>
+                                <input disabled type="text" class="form-control" v-bind:value="dataUsuario.date_create">
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -81,11 +83,6 @@ export default {
     }),
 
     created() {
-        // ********************* PROBAR ESTO CON LA RUTA DE  IMAGENES ***********    
-
-        //<img :src="require(`${imgPreUrl}img/logo.png`)">
-
-        //<img v-bind:src="`${imgPreUrl()}img/logo.png`">
 
         let claves = Object.keys(localStorage)
 
@@ -102,7 +99,9 @@ export default {
     },
 
     methods: {
-
+        mostrarFoto: function (url) {
+            return 'http://proyect_airbnb.test' + url
+        }
 
     }
 };

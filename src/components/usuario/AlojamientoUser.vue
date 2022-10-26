@@ -1,31 +1,71 @@
 <template >
-
     <div class="container">
+        <div class="card border-0 shadow">
+            <div class="card-body">
 
+                <form>
+                    <!-- primera fila -->
+                    <div class="form-group">
+                        <div class="row">
+
+                            <!-- primera  -->
+                            <div class="col-md-2">
+                                <label class="label has-text-centered">Desde:{{ fechaInicio }}</label>
+                                <div class="slider-wrapper">
+                                    <input type="date" min="0" class="form-control" v-model="fechaInicio" max="2022-12-31" >
+                                </div>
+                            </div>
+
+                            <!-- Segunda  -->
+                            <div class="col-md-2">
+                                <label class="label has-text-centered">Desde:{{ fechaFinal }}</label>
+                                <div class="slider-wrapper">
+                                    <input type="date" :min="fechaInicio" class="form-control" v-model="fechaFinal" max="2022-12-31" >
+                                </div>
+                            </div>
+
+                             <!-- Boton de filtrar -->
+                            <div class="col-md-2">
+                                <label class="label has-text-centered">.</label>
+                                <div class="control">
+
+                                    <button @click.prevent="enviarData" class="btn btn-primary">Filtrar</button>
+                                </div>
+                            </div>                        
+
+                        </div>
+                    </div>
+                    <!-- Fin de formulario -->
+                </form>
+            </div>
+        </div>
+
+        <!-- comienza body de los servicios -->
         <div class="row g-4">
             <div class="row row-cols-1 row-cols-md-4 g-4">
 
                 <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
-                    <div  class="card h-100 border-0 shadow">
+                    <div class="card h-100 border-0 shadow">
 
                         <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
                             <div v-if="dataServicio.idServicio === dataImagen.idServicio">
                                 <div class="carousel-item active">
-                            <img class="mx-auto d-block card-img-top"
-                                src='http://proyect_airbnb.test/img/publicaciones/7/4409/ar7p5c83zmbNd1Bv.png'
-                                alt="First slide">
+                                    <img class="mx-auto d-block card-img-top" v-bind:src="mostrarFoto(dataImagen.url)"
+                                        alt="First slide">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                        </div>
-                
+
                         <div class="card-body">
                             <h2> {{ dataServicio.nombre }} </h2>
 
                             <div v-for="dataAnfitrion in dataAnfitriones" :key="dataAnfitrion.idAnfitrion">
                                 <div v-for="dataUsuario in dataUsuarios" :key="dataUsuario.idUsuario">
-                                    <h5 v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion && dataAnfitrion.idUsuario === dataUsuario.idUsuario">@{{
-                                dataUsuario.nombre+' ' +dataUsuario.apellido
-                                }}</h5>
+                                    <h5
+                                        v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion && dataAnfitrion.idUsuario === dataUsuario.idUsuario">
+                                        @{{
+                                                dataUsuario.nombre + ' ' + dataUsuario.apellido
+                                        }}</h5>
                                 </div>
                             </div>
 
@@ -33,10 +73,10 @@
 
                             <div v-for="dataMunicipio in dataMunicipios" :key="dataMunicipio.idMunicipio">
                                 <p v-if="dataServicio.idMunicipio === dataMunicipio.idMunicipio">Municipio: {{
-                                dataMunicipio.municipio
+                                        dataMunicipio.municipio
                                 }}</p>
                             </div>
-                            <p> Publicada: {{getDate(dataServicio.date_create)}}</p><br>
+                            <p> Publicada: {{ getDate(dataServicio.date_create) }}</p><br>
 
                             <div class="form-group">
                                 <div class="row">
@@ -73,9 +113,10 @@
                                 </div>
                                 <div class="modal-body">
                                     <form class="row g-4" action="#" method="POST">
-                                        <div class="form-group col-md-12">
-                                            <img class="mx-auto d-block"
-                                                src="http://proyect_airbnb.test/img/publicaciones/1/4506/pj7st1KcGrTIZLYV.jpg"
+                                        <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen"
+                                            class="form-group col-md-12">
+                                            <img v-if="dataServicio.idServicio === dataImagen.idServicio"
+                                                class="mx-auto d-block" v-bind:src="mostrarFoto(dataImagen.url)"
                                                 alt="First slide">
                                         </div>
 
@@ -137,19 +178,23 @@
                                             <div v-for="dataAnfitrion in dataAnfitriones"
                                                 :key="dataAnfitrion.idAnfitrion">
                                                 <div v-if="dataServicio.idAnfitrion === dataAnfitrion.idAnfitrion">
-                                                    <div v-for="dataUsuario in dataUsuarios" :key="dataUsuario.idUsuario">
-                                                <h6 v-if="dataUsuario.idUsuario === dataAnfitrion.idUsuario">
-                                                <div></div>@{{
-                                                dataUsuario.nombre+'.'+dataUsuario.apellido
-                                                }}</h6>
-                                                </div>
+                                                    <div v-for="dataUsuario in dataUsuarios"
+                                                        :key="dataUsuario.idUsuario">
+                                                        <h6 v-if="dataUsuario.idUsuario === dataAnfitrion.idUsuario">
+                                                            <div></div>@{{
+                                                                    dataUsuario.nombre + '.' + dataUsuario.apellido
+                                                            }}
+                                                        </h6>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="form-group col-md-3">
                                             <label class="label has-text-centered">Publicada: </label>
-                                            <h6 class="subtitle is-6 has-text-centered">{{ getDate(dataServicio.date_create) }}
+                                            <h6 class="subtitle is-6 has-text-centered">{{
+                                                    getDate(dataServicio.date_create)
+                                            }}
                                             </h6>
                                         </div>
                                     </form>
@@ -176,10 +221,22 @@
 
 import moment from 'moment';
 import 'moment/locale/es';
+import { ref } from '@vue/reactivity';
 export default {
 
 
     name: 'Alojamiento',
+
+    
+    data() {
+        const fechaInicio = ref('')
+        const fechaFinal = ref('')
+
+        return {
+            fechaInicio: fechaInicio.value,
+            fechaFinal: fechaFinal.value,  
+        }
+    },
 
     data: () => ({
         dataServicios: null,
@@ -187,8 +244,8 @@ export default {
         dataMunicipios: null,
         dataTarifas: null,
         dataTipoHospedajes: null,
-        dataUsuarios:null,
-        dataImagenes:null,
+        dataUsuarios: null,
+        dataImagenes: null,
         rutaFotos: null,
         fotos: null
 
@@ -203,8 +260,9 @@ export default {
             this.dataUsuarios = result.data.usuarios
             this.dataImagenes = result.data.imagenes
 
-        })
+        })    
     },
+
     methods: {
         showModal(id) {
             $("#" + id).modal('show');
@@ -218,11 +276,30 @@ export default {
             this.$router.push('/verServicio/' + idServicio)
         },
 
-        getDate: function(fecha){
+        getDate: function (fecha) {
             moment.locale('es')
-            return this.fechaFinal = moment(fecha).fromNow()
-        }
+            return this.fechaFinall = moment(fecha).fromNow()
+        },
 
+        mostrarFoto: function (url) {
+            return url
+        },
+
+        //funcion para la peticion de filtro de servicios por fecha
+        enviarData: function () {
+            axios({
+                method: 'post',
+                url: '',
+                data: {
+                    fechaInicio: this.fechaInicio,
+                    fechaFinal: this.fechaFinal,
+            
+                }
+            }).then(response => console.log(response) ).catch(function (error) {
+                swal("¡Error!", "Ingresa los datos correctamente", "error");
+            })
+        },
+        
 
     }
 };

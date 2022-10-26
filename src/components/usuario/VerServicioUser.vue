@@ -35,8 +35,11 @@
                             <!-- imgagenes -->
                             <div class="row">
                                 <div class="col-md-5">
-                                    <img src="http://apitechhousing.test/img/capacitacionesGalerias/4/SyHkU3wTD7chv25x.jpg"
-                                        class="w-100 shadow-1-strong rounded mb-2" alt="" />
+                                    <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
+                                        <div v-if="dataServicio.idServicio === dataImagen.idServicio">
+                                            <img v-bind:src="mostrarFoto(dataImagen.url)" class="w-100 shadow-1-strong rounded mb-2" alt="" />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-md-3">
                                     <!-- Demás imagenes -->
@@ -332,6 +335,7 @@ export default {
         dataSaludYSeguridad: null,
         dataGuardarPoliticasDeCancelacion: null,
         dataPoliticasDeCancelacion: null,
+        dataImagenes: null,
 
 
 
@@ -341,6 +345,7 @@ export default {
         axios.get('http://api_airbnb.test/servicios/' + this.$route.params.idServicio).then(result => {
             this.dataServicios = result.data.servicio
             this.dataTarifas = result.data.tarifa
+            this.dataImagenes = result.data.imagenes
             this.dataAnfitriones = result.data.anfitrion
             this.dataTipoHospedajes = result.data.tipoHospedaje
             this.dataMunicipios = result.data.municipio
@@ -353,7 +358,6 @@ export default {
             this.dataGuardarSaludYSeguridad = result.data.saludSeguridad
             this.dataGuardarPoliticasDeCancelacion = result.data.politicaCancelacion
             this.dataGuardarReglasServicios = result.data.reglaServicio
-            console.log(this.dataGuardarSubServicios)
         })
 
     },
@@ -366,6 +370,11 @@ export default {
         getDate: function (fecha) {
             moment.locale('es')
             this.fechaFinal = moment(fecha).fromNow()
+        },
+
+        mostrarFoto: function (url){
+            return url
+
         }
 
     }
