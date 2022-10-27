@@ -256,6 +256,7 @@ export default {
                     swal("¡Error!",response.data.message, "error")
                 }else{
                     swal(response.data.message, "exito")
+
                 }
             }
         },

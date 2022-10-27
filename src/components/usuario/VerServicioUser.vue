@@ -9,123 +9,76 @@
                     <div class="card border-dark">
 
                         <form>
-
-                            <div class="col-md-4">
-                                <div>
-                                    <div>
-                                        <div class="h1 text-dark">
-                                            <label class="h1">
-                                                {{ dataServicios[0].nombre }} - ${{ dataTarifas[0].precio }}<label
-                                                    class="h4">/Dia</label> </label>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label v-if="dataTarifas[0].descuento > 0" style="color:red;"
-                                                class="h6">descuento
-                                                {{ dataTarifas[0].descuento }}%</label>
-                                        </div>
-
+                            <div class="grid">
+                                <div class="grid-item">
+                                    <div class="h1 text-dark">
+                                        <label class="h1">
+                                            {{ dataServicios[0].nombre }} - ${{ dataTarifas[0].precio }}<label
+                                                class="h4">/Dia</label> </label>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
-                                    <p class="h2 text-warning">★★★★★</p>
+
+                                <div class="grid-item">
+                                    <div class="col-md-5">
+                                        <p class="h2 text-warning">★★★★★</p>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- imgagenes -->
-                            <div class="row">
-                                <div class="col-md-5">
+                            <div class="row g-4">
+                                <div class="row row-cols-1 row-cols-md-3 g-4">
+
                                     <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
                                         <div v-if="dataServicio.idServicio === dataImagen.idServicio">
-                                            <img v-bind:src="mostrarFoto(dataImagen.url)" class="w-100 shadow-1-strong rounded mb-2" alt="" />
+                                            <img v-bind:src="mostrarFoto(dataImagen.url)"
+                                                class="mx-auto d-block card-img-top" alt="" />
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <!-- Demás imagenes -->
+
                                 </div>
                             </div>
                             <!-- fin Imagenes -->
 
 
-                            <!-- Primera  -->
-                            <div class="col-md-3">
-                                <div>
+                            <!-- Primera Fila  -->
+                            <div class="grid">
+                                <div class="grid-item">
                                     <div class="h4">
-                                        <div>
-                                            <div class="h4">
-                                                <label class="h2 text-dark">Anfitrion:</label> @{{
-                                                        dataUsuarios[0].nombre + '.' + dataUsuarios[0].apellido
-                                                }}
-                                            </div>
-                                        </div>
+                                        <label class="h2 text-dark">Anfitrion:</label> @{{
+                                                dataUsuarios[0].nombre + '.' + dataUsuarios[0].apellido
+                                        }}
                                     </div>
                                 </div>
-                            </div>
 
-
-
-                            <div class="col-md-4">
-                                <div>
-                                    <div>
-                                        <div>
-                                            <div>
-                                                <div>
-                                                    <div>
-                                                        <div class="h4">
-                                                            <label class="h2 text-dark">Tipo Hospedaje:</label>{{
-                                                                    dataTipoHospedajes[0].tipoHospedaje
-                                                            }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-7">
-                                <div>
-                                    <div>
-                                        <div>
-                                            <div>
-                                                <div>
-                                                    <div>
-                                                        <div class="h4">
-                                                            <label class="h2 text-dark">Ubicacion:</label>
-                                                            {{ dataPaises[0].pais }}, {{
-                                                                    dataDepartamentos[0].departamento
-                                                            }},
-                                                            {{ dataMunicipios[0].municipio }} -
-                                                            {{ dataServicios[0].direccion }}
-                                                        </div><br>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-7">
-                                <div>
+                                <!-- Segunda Fila  -->
+                                <div class="grid-item">
                                     <div class="h4">
-                                        <div>
-                                            <div>
-                                                <div>
-                                                    <div>
-                                                        <div class="h4">
-                                                            <label class="h5">{{ dataServicios[0].descripcion }}</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <label class="h2 text-dark">Tipo Hospedaje:</label>{{
+                                                dataTipoHospedajes[0].tipoHospedaje
+                                        }}
+                                    </div>
+                                </div>
+
+                                <!-- Tercera Fila  -->
+                                <div class="grid-item">
+                                    <div class="h4">
+                                        <label class="h2 text-dark">Ubicacion:</label>
+                                        {{ dataPaises[0].pais }}, {{ dataDepartamentos[0].departamento }},
+                                        {{ dataMunicipios[0].municipio }} -
+                                        {{ dataServicios[0].direccion }}
+                                    </div>
+                                </div>
+
+                                <!-- Cuarta Fila  -->
+                                <div class="grid-item">
+                                    <div class="h4">
+                                        <label class="h5">{{ dataServicios[0].descripcion }}</label>
                                     </div>
                                 </div>
                             </div>
+
+
 
                             <hr><br><br>
 
@@ -372,7 +325,7 @@ export default {
             this.fechaFinal = moment(fecha).fromNow()
         },
 
-        mostrarFoto: function (url){
+        mostrarFoto: function (url) {
             return url
 
         }
@@ -386,5 +339,10 @@ export default {
 <style scoped>
 .container {
     margin-top: 10vh;
+}
+
+.grid {
+    grid-template-columns: repeat(1);
+    text-align: left;
 }
 </style>

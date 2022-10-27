@@ -12,7 +12,8 @@
                             <div class="col-md-2">
                                 <label class="label has-text-centered">Desde:{{ fechaInicio }}</label>
                                 <div class="slider-wrapper">
-                                    <input type="date" min="0" class="form-control" v-model="fechaInicio" max="2022-12-31" >
+                                    <input type="date" min="0" class="form-control" v-model="fechaInicio"
+                                        max="2022-12-31">
                                 </div>
                             </div>
 
@@ -20,18 +21,19 @@
                             <div class="col-md-2">
                                 <label class="label has-text-centered">Desde:{{ fechaFinal }}</label>
                                 <div class="slider-wrapper">
-                                    <input type="date" :min="fechaInicio" class="form-control" v-model="fechaFinal" max="2022-12-31" >
+                                    <input type="date" :min="fechaInicio" class="form-control" v-model="fechaFinal"
+                                        max="2022-12-31">
                                 </div>
                             </div>
 
-                             <!-- Boton de filtrar -->
+                            <!-- Boton de filtrar -->
                             <div class="col-md-2">
                                 <label class="label has-text-centered">.</label>
                                 <div class="control">
 
                                     <button @click.prevent="enviarData" class="btn btn-primary">Filtrar</button>
                                 </div>
-                            </div>                        
+                            </div>
 
                         </div>
                     </div>
@@ -40,18 +42,24 @@
             </div>
         </div>
 
-        <!-- comienza body de los servicios -->
+
+           <!-- comienza body de los servicios -->
         <div class="row g-4">
             <div class="row row-cols-1 row-cols-md-4 g-4">
 
                 <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
                     <div class="card h-100 border-0 shadow">
 
-                        <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
-                            <div v-if="dataServicio.idServicio === dataImagen.idServicio">
-                                <div class="carousel-item active">
-                                    <img class="mx-auto d-block card-img-top" v-bind:src="mostrarFoto(dataImagen.url)"
-                                        alt="First slide">
+
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner rounded" style="width: 90%; margin: 0 auto">
+                                <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
+                                    <div v-if="dataServicio.idServicio === dataImagen.idServicio">
+                                        <div class="carousel-item active">
+                                            <img class="zoom mx-auto d-block card-img-top"
+                                                v-bind:src="mostrarFoto(dataImagen.url)" alt="First slide">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +100,7 @@
                                             @click="showModal(dataServicio.idServicio)">Preview</button>
                                     </div><br><br>
 
-                                    <button v-if="dataServicio.disponibilidad == 0" class="btn btn-success"
+                                    <button class="btn btn-success"
                                         @click.prevent="reservar(dataServicio.idServicio)">Reservar</button>
                                 </div>
                             </div>
@@ -113,11 +121,20 @@
                                 </div>
                                 <div class="modal-body">
                                     <form class="row g-4" action="#" method="POST">
-                                        <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen"
-                                            class="form-group col-md-12">
-                                            <img v-if="dataServicio.idServicio === dataImagen.idServicio"
-                                                class="mx-auto d-block" v-bind:src="mostrarFoto(dataImagen.url)"
-                                                alt="First slide">
+
+                                        <div id="carouselExampleIndicators" class="carousel slide"
+                                            data-bs-ride="carousel">
+                                            <div class="carousel-inner rounded" style="width: 90%; margin: 0 auto">
+                                                <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
+                                                    <div v-if="dataServicio.idServicio === dataImagen.idServicio">
+                                                        <div class="carousel-item active">
+                                                            <img class="mx-auto"
+                                                                v-bind:src="mostrarFoto(dataImagen.url)"
+                                                                alt="First slide">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="form-group col-md-4">
@@ -226,13 +243,33 @@ export default {
 
     name: 'Alojamiento',
 
+    mounted() {
+        $('.carouselExampleIndicators').owlCarousel({
+            loop: true,
+            margin: 15,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        })
+
+    },
+
     data() {
         const fechaInicio = ref('')
         const fechaFinal = ref('')
 
         return {
             fechaInicio: fechaInicio.value,
-            fechaFinal: fechaFinal.value,  
+            fechaFinal: fechaFinal.value,
         }
     },
 
@@ -258,7 +295,7 @@ export default {
             this.dataUsuarios = result.data.usuarios
             this.dataImagenes = result.data.imagenes
 
-        })    
+        })
     },
 
     methods: {
@@ -291,13 +328,13 @@ export default {
                 data: {
                     fechaInicio: this.fechaInicio,
                     fechaFinal: this.fechaFinal,
-            
+
                 }
-            }).then(response => console.log(response) ).catch(function (error) {
+            }).then(response => console.log(response)).catch(function (error) {
                 swal("¡Error!", "Ingresa los datos correctamente", "error");
             })
         },
-        
+
 
     }
 };
@@ -308,5 +345,12 @@ export default {
 <style scoped>
 .container {
     margin-top: 10vh;
+}
+.zoom:hover {
+    transform: scale(1.5); 
+    opacity:5;
+}
+.zoom {
+    transition: transform .2s; 
 }
 </style>

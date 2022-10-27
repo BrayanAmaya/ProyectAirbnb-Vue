@@ -103,11 +103,19 @@
                 <div v-for="dataFiltro in dataFiltros" :key="dataFiltro.idServicio">
                     <div v-if="dataFiltro.estatus == 1" class="card h-100 border-0 shadow">
 
-                        <div class="carousel-item active">
-                            <img class="mx-auto d-block card-img-top"
-                                src="http://apitechhousing.test/img/capacitacionesGalerias/4/SyHkU3wTD7chv25x.jpg"
-                                alt="First slide">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner rounded" style="width: 90%; margin: 0 auto">
+                                <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
+                                    <div v-if="dataFiltro.idServicio === dataImagen.idServicio">
+                                        <div class="carousel-item active">
+                                            <img class="mx-auto d-block card-img-top"
+                                                v-bind:src="mostrarFoto(dataImagen.url)" alt="First slide">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="card-body">
                             <h2> {{ dataFiltro.nombre }} </h2>
 
@@ -162,10 +170,20 @@
                                 </div>
                                 <div class="modal-body">
                                     <form class="row g-4" action="#" method="POST">
-                                        <div class="form-group col-md-12">
-                                            <img class="mx-auto d-block"
-                                                src="@/assets/img/publicaciones/1/2766/EebhZkyvpIQROXjl.jpg"
-                                                alt="First slide">
+
+                                        <div id="carouselExampleIndicators" class="carousel slide"
+                                            data-bs-ride="carousel">
+                                            <div class="carousel-inner rounded" style="width: 90%; margin: 0 auto">
+                                                <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
+                                                    <div v-if="dataFiltro.idServicio === dataImagen.idServicio">
+                                                        <div class="carousel-item active">
+                                                            <img class="mx-auto"
+                                                                v-bind:src="mostrarFoto(dataImagen.url)"
+                                                                alt="First slide">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="form-group col-md-4">
@@ -288,12 +306,15 @@ export default {
         dataTipoHospedajes: null,
         dataFiltros: null,
         respuesta: null,
+        dataImagenes: null,
     }),
     created() {
         axios.get('http://api_airbnb.test/servicios').then(result => {
             this.dataAnfitriones = result.data.anfitriones,
-            this.dataMunicipios = result.data.municipios,
-            this.dataTipoHospedajes = result.data.tipoHospedaje
+                this.dataMunicipios = result.data.municipios,
+                this.dataTipoHospedajes = result.data.tipoHospedaje,
+                this.dataTarifas = result.data.tarifas,
+                this.dataImagenes = result.data.imagenes
         })
 
     },
@@ -310,6 +331,10 @@ export default {
 
         verServicio(idServicio) {
             this.$router.push('/verServicio/' + idServicio)
+        },
+
+        mostrarFoto: function (url) {
+            return url
         },
 
         enviarData: function () {
