@@ -4,7 +4,19 @@
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <div v-for="dataServicio in dataServicios" :key="dataServicio.idServicio">
                     <div class="card h-100 border-0 shadow">
-                        <img src="@/assets/img/publicaciones/1/2766/EebhZkyvpIQROXjl.jpg" class="card-img-top" alt="...">
+                       
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner rounded" style="width: 90%; margin: 0 auto">
+                                <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
+                                    <div v-if="dataServicio.idServicio === dataImagen.idServicio">
+                                        <div class="carousel-item active">
+                                            <img class="zoom mx-auto d-block card-img-top"
+                                                v-bind:src="mostrarFoto(dataImagen.url)" alt="First slide">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                        
                         <div class="card-body">
                             <h2> {{ dataServicio.nombre }}</h2>
@@ -62,9 +74,23 @@
                                 </div>
                                 <div class="modal-body">
                                     <form class="row g-4" action="#" method="POST">
-                                           <div class="form-group col-md-12">
-                                            <img  class="mx-auto d-block"  src="@/assets/img/publicaciones/1/2766/EebhZkyvpIQROXjl.jpg" alt="First slide">
-                                        </div>           
+                                           
+                                        
+                                        <div id="carouselExampleIndicators" class="carousel slide"
+                                            data-bs-ride="carousel">
+                                            <div class="carousel-inner rounded" style="width: 90%; margin: 0 auto">
+                                                <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
+                                                    <div v-if="dataServicio.idServicio === dataImagen.idServicio">
+                                                        <div class="carousel-item active">
+                                                            <img class="mx-auto zoom"
+                                                                v-bind:src="mostrarFoto(dataImagen.url)"
+                                                                alt="First slide">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
 
                                         <div class="form-group col-md-4">
                                             <label class="label has-text-centered">Tarifa/Noche</label>
@@ -166,7 +192,8 @@ export default {
         dataAnfitriones: null,
         dataMunicipios: null,
         dataTarifas: null,
-        dataTipoHospedajes: null
+        dataTipoHospedajes: null,
+        dataImagenes: null
     }),
     created() {
 
@@ -194,7 +221,11 @@ export default {
         getDate: function(fecha){
             moment.locale('es')
             return this.fechaFinal = moment(fecha).fromNow()
-        }
+        },
+
+        mostrarFoto: function (url) {
+            return url
+        },
 
     }
 };
@@ -205,5 +236,12 @@ export default {
 <style scoped>
 .container {
     margin-top: 10vh;
+}
+.zoom:hover {
+    transform: scale(1.5); 
+    opacity:5;
+}
+.zoom {
+    transition: transform .2s; 
 }
 </style>
