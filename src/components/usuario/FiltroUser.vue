@@ -108,7 +108,7 @@
                                 <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
                                     <div v-if="dataFiltro.idServicio === dataImagen.idServicio">
                                         <div class="carousel-item active">
-                                            <img class="mx-auto d-block card-img-top"
+                                            <img class="zoom mx-auto d-block card-img-top"
                                                 v-bind:src="mostrarFoto(dataImagen.url)" alt="First slide">
                                         </div>
                                     </div>
@@ -177,7 +177,7 @@
                                                 <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
                                                     <div v-if="dataFiltro.idServicio === dataImagen.idServicio">
                                                         <div class="carousel-item active">
-                                                            <img class="mx-auto"
+                                                            <img class="mx-auto zoom"
                                                                 v-bind:src="mostrarFoto(dataImagen.url)"
                                                                 alt="First slide">
                                                         </div>
@@ -375,5 +375,12 @@ export default {
 <style scoped>
 .container {
     margin-top: 10vh;
+}
+.zoom:hover {
+    transform: scale(1.5); 
+    opacity:5;
+}
+.zoom {
+    transition: transform .2s; 
 }
 </style>

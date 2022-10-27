@@ -128,7 +128,7 @@
                                                 <div v-for="dataImagen in dataImagenes" :key="dataImagen.idImagen">
                                                     <div v-if="dataServicio.idServicio === dataImagen.idServicio">
                                                         <div class="carousel-item active">
-                                                            <img class="mx-auto"
+                                                            <img class="mx-auto zoom"
                                                                 v-bind:src="mostrarFoto(dataImagen.url)"
                                                                 alt="First slide">
                                                         </div>

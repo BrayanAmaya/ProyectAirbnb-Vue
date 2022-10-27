@@ -122,7 +122,7 @@
                                             dataUsuarios[0].apellido
                                     }}</label></label><br>
                                     <!-- Imagen por defecto de anfitrion -->
-                                    <img class="img-thumbnail" src="@/assets/img/publicaciones/default.jpg" alt=""><br>
+                                    <img class="img-thumbnail" v-bind:src="mostrarFotoPerfil(dataUsuarios[0].foto)" alt=""><br>
                                     <label v-on="getDate(dataAnfitriones[0].date_create)" class="h6">Se registró:
                                         {{ fechaFinal }}</label><br><br>
                                 </div>
@@ -315,6 +315,9 @@ export default {
 
     },
     methods: {
+        mostrarFotoPerfil: function (url) {
+            return 'http://proyect_airbnb.test' + url
+        },
 
         getIdServicio: function (id) {
             this.idServicio = id;
