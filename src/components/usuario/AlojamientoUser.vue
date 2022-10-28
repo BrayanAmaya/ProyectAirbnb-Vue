@@ -282,7 +282,7 @@ export default {
         dataUsuarios: null,
         dataImagenes: null,
         rutaFotos: null,
-        fotos: null
+        fotos: null,
 
     }),
     created() {
@@ -294,7 +294,6 @@ export default {
             this.dataTipoHospedajes = result.data.tipoHospedaje
             this.dataUsuarios = result.data.usuarios
             this.dataImagenes = result.data.imagenes
-
         })
     },
 

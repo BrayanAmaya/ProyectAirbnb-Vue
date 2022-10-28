@@ -57,6 +57,10 @@
                                     </div><br>
                                 </div>
 
+                                <div v-for="fechaReserva in fechasReserva" :key="fechaReserva.idFecha">
+                                    <label>De: {{fechas(fechaReserva.fechaEntrada)}} hasta: {{fechas(fechaReserva.fechaSalida)}}</label>
+                                </div>
+
 
                                 <div v-if="fechaSalida != null && fechaEntrada != null ">
                                     <h5 class="label has-text-centered">Dias
@@ -73,7 +77,7 @@
                                         <!-- boton registro -->
                                         <div class="text-center mt-6">
                                             <div class="control">
-                                                <button v-on:click="counter = 1" class="btn btn-primary">Confimar
+                                                <button @click.prevent="confirmar" class="btn btn-primary">Confimar
                                                     pago</button><br><br>
                                             </div>
                                         </div><br>
@@ -152,7 +156,8 @@
   
 <script>
 import { ref } from '@vue/reactivity';
-
+import moment from 'moment';
+import 'moment/locale/es';
 export default {
     name: 'ReservaUser',
 
@@ -182,14 +187,16 @@ export default {
         totalAPagar: null,
         counter: 0,
         idUsuario: null,        
-
+        fechasReserva: null,
     }),
     created() {
         axios.get('http://api_airbnb.test/servicios/reservas/'+this.$route.params.idServicio).then(result => {
-            this.dataServicios = result.data.servicio,
+            this.dataServicios = result.data.servicio
             this.dataTarifas = result.data.tarifa
-            this.fechaActual = new Date().toISOString().slice(0, 10);
+            this.fechasReserva = result.data.fechasReserva
+            this.fechaActual = new Date().toISOString().slice(0, 10)
             this.idServicio = this.dataServicios[0].idServicio
+            console.log(this.fechasReserva)
         })
 
         let claves = Object.keys(localStorage)
@@ -222,6 +229,33 @@ export default {
             var total = subTotal - totalFinal;
             return this.totalAPagar = total;
         }, 
+
+        confirmar: function(){
+            axios({
+                method: 'POST',
+                url: 'http://api_airbnb.test/confirmar',
+                data: {
+                    fechaEntrada: this.fechaEntrada,
+                    fechaSalida: this.fechaSalida,
+                    idServicio: this.idServicio,
+                }
+            }).then(response => pagar(response)).catch(function (error) {
+                swal("¡Error!", "Ingresa los datos correctamente", "error");
+            })
+
+            const pagar = (response) => {
+                if(response.data.message === 'Ya esta reservado'){
+                    swal("¡Error!", "Fecha ya reservada", "error");
+                }else{
+                    this.counter = 1
+                }
+            }
+        },
+
+        fechas: function(fecha){
+            moment.locale('es')
+            return moment(fecha).format('dddd, D MMMM [de] YYYY')
+        },
 
         enviarData: function () {
             axios({
