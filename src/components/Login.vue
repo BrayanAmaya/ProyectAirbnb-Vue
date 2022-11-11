@@ -36,11 +36,25 @@ export default {
             password: password.value
         }
     },
+
+
+    created() {
+
+      
+     /*  
+        $cookies.set("token", "token", {
+            httpOnly: true, //evitar document.cookie en consola
+            secure: !(process.env.MODE === "dev"), //https
+            sameSite: true
+        })*/
+    },
+
     methods: {
         evaluar: function () {
             axios({
                 method: 'post',
                 url: 'http://api_airbnb.test/auth/login',
+
                 data: {
                     email: this.email,
                     password: this.password
@@ -49,28 +63,45 @@ export default {
                 swal("¡Error!", "Ingresa los datos correctamente", "error");
 
             })
-            
+
             const llamar = (token, idUsuario) => {
                 axios.get('http://api_airbnb.test/user', {
                     headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                        'Authorization': `Bearer ${token}`,
+                    },
+
                 }).then(response => {
-                    if (localStorage.getItem(token) ) {
-                        token = JSON.parse(localStorage.getItem(token));
+
+                    //  document.cookie = "token="+token 
+                    //  document.cookie = "user=John;  {HttpOnly:true}";
+
+                    //  $cookies.set('token', token, {httpOnly: true});
+                    //$cookies.set(token, token);
+
+                   // alert($cookies.get(token))
+
+                   if ($cookies.get(token)) {
+                        token = JSON.parse($cookies.get(token));
+                    }
+                    watchEffect(() => {
+                    //    document.cookie = token,token, JSON.stringify(token)
+                        $cookies.set("token", token, JSON.stringify(token))                     
+                    });
+                   
+         
+                    if (localStorage.getItem(idUsuario)) {
                         idUsuario = JSON.parse(localStorage.getItem(idUsuario));
                     }
                     watchEffect(() => {
-                        localStorage.setItem(token, JSON.stringify(token));
                         localStorage.setItem(idUsuario, JSON.stringify(idUsuario));
                     });
-                   // console.log(response.data),
-                   //console.log(idUsuario)
-                        //  variable = JSON.parse(localStorage.getItem(token));
+                //    alert($cookies.get(token))
                     this.$router.push('/inicio/' + token)
                 })
             }
         }
+
+
 
     }
 }

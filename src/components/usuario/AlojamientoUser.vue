@@ -113,8 +113,8 @@
                                     <div class="col-md-6">
 
                                         <button class="btn btn-info"
-                                            @click="showModal(dataServicio.idServicio)">Preview</button>
-                                    </div><br><br>
+                                            @click="showModal(dataServicio.idServicio)">Preview</button><br><br> 
+                                    </div>
 
                                     <button class="btn btn-success"
                                         @click.prevent="reservar(dataServicio.idServicio)">Reservar</button>
@@ -294,6 +294,7 @@ export default {
             this.idUsuario = clave
         });
 
+    
         axios({
                 method: 'post',
                 url: 'http://api_airbnb.test/serviciosPost',
@@ -313,7 +314,7 @@ export default {
                 this.dataTipoHospedajes = result.data.tipoHospedaje
                 this.dataUsuarios = result.data.usuarios
                 this.dataImagenes = result.data.imagenes
-                console.log(this.dataServicios)
+               
             }
     },
 

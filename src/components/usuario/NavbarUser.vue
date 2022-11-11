@@ -64,9 +64,13 @@ export default {
 
       claves.forEach(clave => {
         localStorage.removeItem(clave);
+        $cookies.remove("token");
         this.local = clave
       });
+
+
     },
+
 
   }
 

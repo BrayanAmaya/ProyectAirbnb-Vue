@@ -29,12 +29,7 @@ export default {
         local: ''
     }),
     created() {
-        let claves = Object.keys(localStorage)
-
-        claves.forEach(clave => {
-            localStorage.getItem(clave)
-            this.local = clave
-        });
+        this.local = $cookies.get("token");
     },
 }
 
